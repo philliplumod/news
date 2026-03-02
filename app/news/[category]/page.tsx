@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import type { NewsArticle } from "@/lib/news"
+import SkeletonArticle from "@/components/SkeletonArticle"
 
 export default function NewsArticlePage() {
   const params = useParams<{ category: string }>()
@@ -46,7 +47,12 @@ export default function NewsArticlePage() {
   }, [params.category])
 
   if (isLoading) {
-    return <p>Loading category news...</p>
+    return (
+      <section className="space-y-6">
+        <div className="h-8 w-56 rounded bg-gray-200 animate-pulse" />
+        <SkeletonArticle count={5} />
+      </section>
+    )
   }
 
   if (error) {

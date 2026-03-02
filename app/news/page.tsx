@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import type { NewsArticle } from "@/lib/news"
+import SkeletonArticle from "@/components/SkeletonArticle"
 
 export default function NewsPage() {
   const [articles, setArticles] = useState<NewsArticle[]>([])
@@ -33,7 +34,12 @@ export default function NewsPage() {
   }, [])
 
   if (isLoading) {
-    return <p>Loading news...</p>
+    return (
+      <section className="space-y-6">
+        <div className="h-8 w-48 rounded bg-gray-200 animate-pulse" />
+        <SkeletonArticle count={6} />
+      </section>
+    )
   }
 
   if (error) {
